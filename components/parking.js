@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, ScrollView, Dimensions, TouchableWithoutFeedback, Image } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, Dimensions, TouchableWithoutFeedback, Image, FlatList } from 'react-native'
 import React, { Component, useState } from 'react'
 import Items from '../json/parkings.json'
 import Tag from '../images/tag.png'
@@ -13,19 +13,9 @@ const {width, height} = Dimensions.get('screen')
 export default function Parking() {
     const [hours, setHours] = useState({})
 
-    return (
-
-        <ScrollView horizontal 
-        pagingEnabled 
-        scrollEnabled 
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="center"
-        scrollEventThrottle={16}
-        contentInset={{top:0, left:0, bottom:0, right:12}}
-        onScroll={props => console.log('onScroll',props)}
-        style={styles.ParkingStyle}>
-            
-        {Items.map((x, index) => <View style={styles.ItemText}>
+    const renderItem = (x, index)=>{
+        return (
+            <View style={styles.ItemText}>
 
             <View>
              <Text  key={index}>{x.title}</Text>
@@ -40,18 +30,18 @@ export default function Parking() {
                     marginTop:5,
                 }}
              >05:00 hrs</Text>
-            <Picker
+            {/* <Picker
   selectedValue={hours[x.id]}
   onValueChange={(itemValue, itemIndex) =>
     setHours({...hours, [x.id]:itemIndex})
   }>
-  <Picker.Item label="1:00" value="1" />
-  <Picker.Item label="2:00" value="2" />
-  <Picker.Item label="3:00" value="3" />
-  <Picker.Item label="4:00" value="4" />
-  <Picker.Item label="5:00" value="5" />
-  <Picker.Item label="6:00" value="6" />
-</Picker>
+  <Picker.Item label="01:00" value={1} />
+  <Picker.Item label="02:00" value={2} />
+  <Picker.Item label="03:00" value={3} />
+  <Picker.Item label="04:00" value={4} />
+  <Picker.Item label="05:00" value={5} />
+  <Picker.Item label="06:00" value={6} />
+</Picker> */}
             </View>
 
         <View style={{flex:1, flexDirection:'row'}}>
@@ -85,8 +75,27 @@ export default function Parking() {
 
             
                 </View>
-                )}
-        </ScrollView>
+        )
+    }
+
+    return (
+
+        <FlatList
+        horizontal 
+        pagingEnabled 
+        scrollEnabled 
+        showsHorizontalScrollIndicator={false}
+        snapToAlignment="center"
+        scrollEventThrottle={16}
+        contentInset={{top:0, left:0, bottom:0, right:12}}
+        onScroll={props => console.log('onScroll',props)}
+        style={styles.ParkingStyle}
+        data={Items}
+        renderItem={({ item, index }) => renderItem(item, index)}
+        keyExtractor={(item)=> `${item.id}`}
+        />
+
+
         
 
     )

@@ -4,24 +4,39 @@
 "title":"parking 1",
 "price": 2.99,
 "rating":4.6,
-"spot":3,
-"free":10
+"spot":13,
+"free":2,
+"coordinate":{
+    "latitude":6.67,
+    "longitude":-1.8742
+}
+
 },
 {
     "id":2,
     "title":"parking 2",
     "price": 6.99,
     "rating":3.3,
-    "spot":4,
-    "free":20
+    "spot":14,
+    "free":4,
+    "coordinate":{
+        "latitude":6.36,
+    "longitude":-1.3742
+    }
+    
     },
     {
         "id":3,
         "title":"parking 3",
         "price": 5.99,
         "rating":4.1,
-        "spot":7,
-        "free":15
+        "spot":15,
+        "free":4,
+        "coordinate":{
+            "latitude":6.86,
+            "longitude":-1.4742
+        }
+
         }
 
 ]
