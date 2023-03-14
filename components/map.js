@@ -1,9 +1,12 @@
 import { Text, StyleSheet, View} from 'react-native'
-import React, {Component} from 'react'
+import React from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import Items from '../json/parkings.json'
+import ActiveHandler from '../activeHandler';
 
 export default function Map(){
+    const activeHandler = new ActiveHandler()
+    
     return (
         <View style={styles.MapStyle}>
             <MapView 
@@ -18,7 +21,7 @@ export default function Map(){
             >
                 {Items.map((x)=> 
                 <Marker key={x.id} coordinate={x.coordinate} >
-                    <View style={styles.marker}>
+                    <View style={[styles.marker, activeHandler == Items.id ? styles.active : null]}>
                     <Text style={{fontWeight:'bold', color:'white'}}>${x.price}</Text><Text style={{fontWeight:'bold',color:'white'}}>({x.free}/{x.spot})</Text>
                     </View>
                    
@@ -40,18 +43,27 @@ const styles = StyleSheet.create({
         flex:1,
 
         backgroundColor:'coral',
-        shadowColor:'#0000',
+        shadowColor:'grey',
         shadowOffset:{
             width:0,
             height:12,
         },
         shadowOpacity:0.50,
         shadowRadius:10,
-        padding:12,
+        padding:5,
         borderRadius:24,
-        elevation:10
-
+        elevation:10,
+        width:100,
+        paddingVertical:10,
+        flexDirection:'row',
+        justifyContent:'center'
+       
         
+    },
+    active:{
+        borderColor:'white'
     }
+    
 
 })
+
